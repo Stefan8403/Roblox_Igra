@@ -1,5 +1,5 @@
-/*Ovo je glavna skripta koja pokrece igru tj. ucitava datoteke iz memorije, pa onda ispisuje na ekranu intermssion pa ucitava map
-*/ili bira nasumicnu mapu i onda teleportuje igrace na mapu i kada se igra zavrsi vraca ih u lobby i sve tako u krug.
+//Ovo je glavna skripta koja pokrece igru 
+//Moram odmah na pocetku napomenuti da je ovaj kod povezan sa drugim kodovima iz memorije i "Izvlaci" njihove vrednosti da bi mogao da radi
 
 
 local Maps = game.ServerStorage:WaitForChild("Maps")
@@ -13,6 +13,7 @@ local MapLoaded = 2
 local Starting = 3
 local Round = 320
 
+//u pocetku mi smo ucitavali memoriju igre i deklarisali vreme 
 
 BoolValue.Changed:Connect(function()
 		for i, Player in pairs(game.Players:GetPlayers()) do
@@ -20,6 +21,8 @@ BoolValue.Changed:Connect(function()
 			char.HumanoidRootPart.CFrame = SpawnP.CFrame
 		end
 end)
+
+//ovde iznad igrace teleportujemo na spawnpoint, u slucaju da je igra u toku, da se stvore na mapi, a ne da cekaju u lobiju
 
 local function roundgame()
 	while true do
@@ -74,4 +77,4 @@ model.Name = "Map"
 end
 
 spawn(roundgame)
-
+//ova funkcija je fakticki sve, onda odbrojava koliko igra traje, ucitava mape i sve faze izmedju dok se mapa ucitava
