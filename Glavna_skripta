@@ -1,0 +1,77 @@
+/*Ovo je glavna skripta koja pokrece igru tj. ucitava datoteke iz memorije, pa onda ispisuje na ekranu intermssion pa ucitava map
+*/ili bira nasumicnu mapu i onda teleportuje igrace na mapu i kada se igra zavrsi vraca ih u lobby i sve tako u krug.
+
+
+local Maps = game.ServerStorage:WaitForChild("Maps")
+local BoolValue = game.ReplicatedStorage:WaitForChild("Value")
+local RoundTimer= game.ReplicatedStorage:WaitForChild("RoundTimer")
+local SpawnP = game.Workspace:WaitForChild("Spawn")
+local Again = game.Workspace:WaitForChild("again")
+local Intermission = 3
+local LoadingMap = 1
+local MapLoaded = 2
+local Starting = 3
+local Round = 320
+
+
+BoolValue.Changed:Connect(function()
+		for i, Player in pairs(game.Players:GetPlayers()) do
+			local char = Player.Character
+			char.HumanoidRootPart.CFrame = SpawnP.CFrame
+		end
+end)
+
+local function roundgame()
+	while true do
+		
+		for i = Intermission,0,-1 do
+			
+			BoolValue.Value = false
+			wait(1)
+			RoundTimer.Value = "Intermission: "..i.." "			
+		end
+		local model = Instance.new("Model")
+		model.Parent = game.Workspace
+model.Name = "Map"
+		for i = LoadingMap, 0 ,-1 do
+			BoolValue.Value = false
+			wait(1)
+			RoundTimer.Value = "LoadingMap..."
+		end
+		local ChoosenFolder = Maps:GetChildren()[math.random(1, #Maps:GetChildren())]
+		local ChoosenMap = ChoosenFolder:GetChildren()[math.random(1, #ChoosenFolder:GetChildren())]
+		local clone = ChoosenMap:Clone()
+		for i, v in pairs(clone:GetChildren()) do
+			wait(0.0000001)
+			v.Parent = model
+
+		
+		end
+		for i =MapLoaded,0,-1 do
+			BoolValue.Value = false
+			wait(1)
+			RoundTimer.Value = "Map loaded! "
+		end
+		for i = Starting,0,-1 do
+			BoolValue.Value = false
+			wait(1)
+			RoundTimer.Value = "Starting in "..i..""
+		end
+		SpawnP.CFrame = game.Workspace.Map.SLOM.CFrame
+
+		for i = Round,0,-1 do
+			BoolValue.Value = true
+			wait(1)
+			RoundTimer.Value = "Game: "..i.." seconds left! "
+		
+		end
+		SpawnP.CFrame = Again.CFrame
+
+			model:Destroy()
+		
+		
+	end
+end
+
+spawn(roundgame)
+
