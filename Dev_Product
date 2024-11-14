@@ -1,0 +1,71 @@
+//Ovaj kod predstavlja kupovinu coinsa za robux valutu u samom robloksu, tipa ko hoce neke bolje efekte da ima brze umesto da igra, mora da plati, tj. ovo je neki vid monetizacije
+
+
+
+local MarketPlaceService = game:GetService("MarketplaceService")
+local Players = game:GetService("Players")
+local ID1 = 1235140651
+local ID2 = 1235144760
+local ID3 = 1235144906
+local ID4 = 1235144957
+local ID5 = 1235145019
+local ID6 = 1235145138
+local ID7 = 1235145178
+local ID8 = 1235145250
+
+//Iznad ucitavamo odredjene biblioteke i ID Devproduct-a koji sam napravio na samom robloksu
+
+local function ProcessReceipt(receiptInfo)
+	local Player = Players:GetPlayerByUserId(receiptInfo.PlayerId)
+	
+	if not Player then
+		
+	return	Enum.ProductPurchaseDecision.NotProcessedYet
+	end
+
+//iznad proverava uslov da li igrac hoce da kupi  i ako je pritisnuo dugme za kupovinu kao i njegov ID
+
+
+	if receiptInfo.ProductId == ID1 then
+		if Player then
+			Player.leaderstats.Coins.Value = Player.leaderstats.Coins.Value + 100
+		end
+	elseif receiptInfo.ProductId == ID2 then
+		if Player then
+			Player.leaderstats.Coins.Value = Player.leaderstats.Coins.Value + 350
+		end
+	elseif receiptInfo.ProductId == ID3 then
+		if Player then
+			Player.leaderstats.Coins.Value = Player.leaderstats.Coins.Value + 800
+		end
+	elseif receiptInfo.ProductId == ID4 then
+		if Player then
+			Player.leaderstats.Coins.Value = Player.leaderstats.Coins.Value + 1300
+		end
+	elseif receiptInfo.ProductId == ID5 then
+		if Player then
+			Player.leaderstats.Coins.Value = Player.leaderstats.Coins.Value + 2800
+		end
+	elseif receiptInfo.ProductId == ID6 then
+		if Player then
+			Player.leaderstats.Coins.Value = Player.leaderstats.Coins.Value + 5000
+		end
+	elseif receiptInfo.ProductId == ID7 then
+		if Player then
+			Player.leaderstats.Coins.Value = Player.leaderstats.Coins.Value + 8000
+		end
+	elseif receiptInfo.ProductId == ID8 then
+		if Player then
+			Player.leaderstats.Coins.Value = Player.leaderstats.Coins.Value + 15000
+		end
+	end
+	return Enum.ProductPurchaseDecision.PurchaseGranted
+end 
+
+//Ovo ostalo iznad se bazira na tome ako je kliknuo da kupi, trazi se id od produkta pa proverava da li je to taj ID i na kraju mu dodaje coins-e u inventar
+
+//Takodje bih naglasio da sam ja ovde koristio deo onoga sto je olaksano za developer-e ali dosta se toga desava u pozadini ili backend
+
+
+MarketPlaceService.ProcessReceipt = ProcessReceipt
+
