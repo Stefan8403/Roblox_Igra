@@ -1,0 +1,22 @@
+//ovde se nalazi skripta preko koje se kupuju ti kao efekti za igru
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ShopBuyer = ReplicatedStorage:WaitForChild("RemoteEvent")
+ShopBuyer.OnServerEvent:Connect(function(player, Player, Kocke, access, Price)
+	if Price > 345 then
+		player.leaderstats.Coins.Value = player.leaderstats.Coins.Value - Price
+		local clone = access:Clone()
+		clone.Parent = Kocke
+	else
+		Player:Kick("Please do not exploit")
+	end
+	
+
+end)
+
+/*Mi ovde cekamo odredjene parametre iz ostalih skripti iz igre i kada se se oni proslede
+imamo funkciju, u koju ubacujemo parametre igraca i sta kupuje(Ovo kocke sam nazvao samo parametar,
+inace efekat moze da bude krug, zvezda itd.).Posle proveravamo uslov kolika je cena efekta NA SERVER STRANI IGRE NE SA CLIENT-a
+i oduzima mu coins-e i on ima u inventaru.Ono sto je zanimljivo jeste to da ovde imamo Player:Kick() sto znaci da ako je cena efekta
+manja od 345, a u igri najjeftiniji efekat je 350 pa se krece posle do cak 2000 coins-a mi proverevamo da li je igrac pomocu
+programa za hakovanje smanjio cenu efekta sa CLIENT SIDE i ako jeste igra ga izbaci iz igre sa poruko da ne hakuje.
