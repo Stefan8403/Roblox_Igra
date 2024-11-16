@@ -1,0 +1,39 @@
+//ovo je skripta gde igrac te efekte stavlja na svoj karakter i cisto sluze u kozmeticke svrhe
+
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RemoteFunction = ReplicatedStorage:WaitForChild("RemoteFunction")
+local RemoteEvent = ReplicatedStorage:WaitForChild("RemoteEventTwo")
+local Players = game:GetService("Players")
+
+
+RemoteFunction.OnServerInvoke = (function( player, UpperTorso, effect, acc, inventory, Character)
+	for i, v in pairs(UpperTorso:GetChildren()) do
+		if v:IsA("ParticleEmitter") then
+			v:Destroy()
+		end
+	end
+	for i, v in pairs(inventory:GetChildren()) do
+		if v:IsA("StringValue") then
+			if v.Name == acc.Name then
+				local clone = effect:Clone()
+				clone.Parent = UpperTorso
+		
+			end
+		end
+	end
+	
+end)
+/*u delu iznad imamo funkciju i odredjene parametre u njoj.Imamo for petlju gde ona trazi poseban deo "Humanoid"-a tj. samog igraca
+odakle ce taj efekat da se emituje i kopira iz iventara odakle ga poseduje.Takodje imamo deo gde ako igrac vec ima neki efekat na sebi,
+taj efekat ce biti zamenjen novim.*/
+
+
+
+RemoteEvent.OnServerEvent:Connect(function(player, UpperTorso)
+	for i, v in pairs(UpperTorso:GetChildren()) do
+		if v:IsA("ParticleEmitter") then
+			v:Destroy()
+		end
+	end
+end)
