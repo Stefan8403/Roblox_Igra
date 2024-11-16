@@ -1,0 +1,36 @@
+//ovde se nalazi skripta gde igrac koristi "specijalne" efekte koje kupuje za robux, prica je slicna kao za obicne samo sto ovde imamo i MarketplaceService posto on trosi robux za te efekte.
+
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RemoteFunction = ReplicatedStorage:WaitForChild("SEFunction")
+local RemoteEvent = ReplicatedStorage:WaitForChild("SEEvent")
+local Players = game:GetService("Players")
+local MarketPlaceService = game:GetService("MarketplaceService")
+local ID = 28041579
+
+RemoteFunction.OnServerInvoke = (function( player, UpperTorso, effect, acc, inventory, Character)
+	
+	if MarketPlaceService:UserOwnsGamePassAsync(player.UserId, 28041579) then
+	for i, v in pairs(UpperTorso:GetChildren()) do
+		if v:IsA("ParticleEmitter") then
+			v:Destroy()
+		end
+	end
+	
+				local clone = effect:Clone()
+				clone.Parent = UpperTorso
+
+		
+	else
+		player:Kick("Please do not exploit")
+end
+end)
+
+RemoteEvent.OnServerEvent:Connect(function(player, UpperTorso)
+	for i, v in pairs(UpperTorso:GetChildren()) do
+		if v:IsA("ParticleEmitter") then
+			v:Destroy()
+		end
+	end
+end)
+
