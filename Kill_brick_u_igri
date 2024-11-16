@@ -1,0 +1,30 @@
+/*ovo je jedna od osnovnih skripti i najjbitnijih u igri bez koje
+mehanika igre gotova pa ne bi postojala.
+Ona sluzi da ako igrac dok prelazi prepreke na mapi zakaci prepreku
+od "neon" materijala onda ka vraca na checkpoint i mora opet
+*/
+
+
+
+local SpawnP = game.Workspace:WaitForChild("Spawn")
+local part= script.Parent
+db = false
+part.Touched:Connect(function(hit)  //proverava ako je blok dotaknut
+	if not db then
+		db = true
+		local humanoid = hit.Parent:FindFirstChild("Humanoid")
+		if humanoid ~= nil then
+			hit.Parent.HumanoidRootPart.CFrame = SpawnP.CFrame  //Ovde ga teleportuje nazad na checkpoint ili spawnpoint
+		end
+		wait(1)
+		db = false
+	end
+
+end)
+
+
+/*VAZNO
+ima jos dosta skripti koje su vezane se prepreke tipa kada sa platforma pomera, siri
+ili ostrice koje se okrecu u krug i dr. ali ova je opet jedna od najjosnovnijih bez koje
+bi igra bila nezamisliva
+*/
