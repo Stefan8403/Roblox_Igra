@@ -1,0 +1,36 @@
+/*U ovoj skripti mi proveravamo stanja u kome se igrac nalazi tj. njegovu
+brzinu, visinu skakanja i ako leti sto nije moguce u igrici i ako prelazi
+odredjene vrednosti znaci da hakuje i onda event AEGM salje signal u skriptu na
+serveru da ga izbaci iz igre.Ova skripta se nalazi na clientu sto znaci da ako je malo bolji
+haker, moze da je izbrise, ali skripta na server proverava stanje u kojoj se ova skripta nalazi 
+i ako vidi da nesto nije u redu, izbacuje ga.
+*/
+
+
+
+local Player = game:GetService("Players").LocalPlayer
+local char = Player.Character.Humanoid
+local AEGM = game:GetService("ReplicatedStorage"):WaitForChild("AEGM")
+local idk = script.Parent:WaitForChild("Thing")
+	
+while true do
+	wait()
+	if char.WalkSpeed > 17 then
+		AEGM:FireServer(char)
+	end
+
+
+	if char.JumpHeight > 8 then
+		AEGM:FireServer(char)
+	end
+	
+	
+	if Enum.HumanoidStateType.Flying == true then
+		AEGM:FireServer()
+	end
+	if idk.Disabled == true then
+		AEGM:FireServer(char)
+	end
+	end
+
+
