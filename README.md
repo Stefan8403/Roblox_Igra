@@ -7,4 +7,7 @@ Dessert, Woodlands i Volcanozone.Svaka grupa ima 4 mape.Kada se ucita mapa, igra
 
 Na igri sam radio negde malo jace od godinu dana, ujedno sam se tada i upoznaovao sa programiranjem kao i raznim "developer"-skim trikovima kao i pomalo modeliranja i kako funkcionise neki engine za igre.Ona je negde pravljenja u periodu 2021-2022, moram napomenuti da sam dosta stvari i zaboravio sto se tice samog programiranja u robloksu ali mi je ostalo dosta toga i znam sta se tacno desava gde kako ide.
 
+Hteo bih i da napomenem da sto ce tice programa, oko 90% sam ja licno ispisao dok ostatak gde sam bas bio zablokirao kako bih se izrazio uzeo i skopirao neke delove sa interneta, jednu skriptu sam cak celu iskopirao
+jer je zaista vec bila malo kompleksna za mene tada.
+
 Prestao sam da radim na igricama jer sam primetio da je konkurencija ogromna i da zaista treba dosta da bi neka igrica uspela da izadje na "main page" tako da kao sto sam rekao neke stvari sam zaboravio mada neke su mi opet i ostale u pamcenju.
