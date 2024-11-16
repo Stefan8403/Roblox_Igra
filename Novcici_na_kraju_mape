@@ -1,0 +1,61 @@
+//ovde imamo skriptu gde igrac zaradjuje novcice kada predje celu mapu.Slicna skripta je iza novcice na samoj mapi tj. checkpoint-a
+
+
+wait(1)
+local wo = game:GetService("Workspace")
+local SpawnP = wo:FindFirstChild("Spawn")
+local db = false
+local RS = game:GetService("ReplicatedStorage")
+local Earn = RS:WaitForChild("CoinEarnAfterWin")
+local marketplaceservice = game:GetService("MarketplaceService")
+local ID = 28067102
+local Coins = 30
+
+//iznad deklarisemo promenjive
+
+while true do
+	wait()	
+	for i, v in pairs(wo:GetDescendants()) do
+		if v:IsA("Part") then
+			if v.Name == "WinPAD" then  
+				v.Touched:Connect(function(hit)                                            //proveravamo ako je igrac dosao do kraja mape
+					local Player = game.Players:GetPlayerFromCharacter(hit.Parent)
+					local WinCheck = Player:WaitForChild("Wintouch")
+					if not db then
+						local Humanoid = hit.Parent:FindFirstChild("Humanoid")	
+						if Humanoid ~= nil then
+					
+							db = true                                          //boolean vrednost zbog bug-a jer se dogadjalo da igra detektuje da igrac cak nekoliko puta stane na deo koji signalizira kraj mape i protim dobije mnogo vise coins-a
+							WinCheck.Value = WinCheck.Value + 1
+							if WinCheck.Value > 2 then
+								Player:Kick("Bad internet connection or exploit!")
+							end
+							if  marketplaceservice:UserOwnsGamePassAsync(Player.UserId, ID) then //takodje sam napravio gamepass ako je igrac kupio za robux pass gde stalno zaradjuje duplo vise coins-a, da mu se u iventar dodaje duplo vise
+								Coins = 60
+							else
+								Coins = 30
+							end
+							Player.leaderstats.Coins.Value = Player.leaderstats.Coins.Value + Coins  //Ovde mu dodajemo coins-e u iventar
+							wait(1)
+							Earn:FireClient(Player)
+							db = false
+							
+					
+							wait(300)  //ovo isto kao wait(300) zbog bug-a
+							WinCheck.Value = 0
+
+						end
+					end
+
+				end)
+			end
+		end
+	end
+	
+	
+	
+	
+end
+
+
+
